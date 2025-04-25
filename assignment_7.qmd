@@ -1,0 +1,107 @@
+---
+title: "toolkit_assignment_7"
+author:
+  name: Hanna Milnikel
+  date: 04.24.2025 
+format: html
+editor: visual
+---
+
+## Step by step explanation of manipulating 'Iris' dataset
+
+#### Loading the "iris" dataset
+
+```{r}
+#| warning: false
+library(tidyr)
+library(dplyr)
+
+data("iris")
+rmarkdown::paged_table(iris)
+#View(iris)
+```
+
+Here I downloaded all the crucial libraries:
+
+-   `library(tidyr)` - reshaping data - I used it for `pivot_longer()`
+
+-   `library(dplyr)` – data manipulation - all tools such as `filter()`, `summarise()`, `group_by()`, `left_join()`
+
+I also loaded a built-in dataset 'iris', and using `rmarkdown::paged_table()` displayed the dataset in a paged, scrollable HTML table (this function is from rmarkdown, but I use this library only once, that's why I didn't load it as tidyr and dplyr)
+
+`View(iris)`
+
+![](images/Zrzut ekranu 2025-04-25 o 11.28.28.png){width="300" height="270"}
+
+#### Transforming table to longer (3 columns Species \| Trait \| Size)
+
+```{r}
+iris_long <- iris %>%
+  pivot_longer(cols=matches("(Sepal|Petal)\\.(Length|Width)"), names_to = "Trait", values_to = "Size")
+#View(iris_long)
+```
+
+Using regex I created a pattern for columns to change `(Sepal|Petal)\\.(Length|Width)` and saved names in column "Trait" and values in column "Size".
+
+`View(iris_long)`
+
+![](images/Zrzut ekranu 2025-04-25 o 12.05.27.png){width="200"}
+
+#### **Mean of length** and **width** of **petal** and **sepal for each species**
+
+```{r}
+petal_sepal_mean <- iris_long %>%
+  group_by(Species,Trait)%>%
+  summarise(Mean = mean(Size), .groups = "drop")
+#View(petal_sepal_mean)
+```
+
+Here I create groups by Species and Trait (for example all setosa Petal.length), then for each group I calculate the mean (`.groups = "drop"` after ruuning this drops created groups).
+
+`View(petal_sepal_mean)`
+
+![](images/Zrzut ekranu 2025-04-25 o 12.13.01.png){width="230"}
+
+#### The **largest** and **widest** **petal** and **sepal** of **virginica** and **versicolor** species
+
+```{r}
+largest_petal_sepal <- iris_long %>%
+  filter(Species %in% c('virginica', 'versicolor')) %>%
+  group_by(Species, Trait) %>%
+  summarise(max_size = max(Size), .groups = "drop")
+
+#View(largest_petal_sepal)
+```
+
+Here I wanted only two species so I filtered them, and againg created groups by species and traits. Then using `max()` function I found largest and widest values of each group.
+
+`View(largest_petal_sepal)`
+
+![](images/Zrzut ekranu 2025-04-25 o 12.15.46.png){width="300"}
+
+#### **Values larger than mean for each species and trait**
+
+```{r}
+iris_long_1 <- iris_long %>%
+  left_join(petal_sepal_mean, by = c("Species", "Trait"))
+#View(iris_long_1)
+
+above_mean <- iris_long_1 %>%
+  group_by(Species, Trait) %>%
+  filter(Size > Mean) %>%
+  summarise(count_above_mean = n(), .groups = "drop")
+
+#View(above_mean)
+```
+
+Lastly I wanted only values larger than mean, so using `left_join()` (because I want all values from iris_long to be present) I joined it with petal_sepal_mean by matching columns 'Species' and 'Trait' (these two columns are a key for each row). This created a table iris_long_1:
+
+`View(iris_long_1)`
+
+![](images/Zrzut ekranu 2025-04-25 o 12.24.19.png){width="250"}
+
+Now I am able to filter only the rows with 'Size' bigger than 'Mean' and using `summarise()` and `n()` I count all the filtered rows for each group.
+
+`View(above_mean)`
+
+![](images/Zrzut ekranu 2025-04-25 o 12.27.33.png){width="400"}
