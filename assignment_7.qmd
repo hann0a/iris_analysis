@@ -31,7 +31,7 @@ I also loaded a built-in dataset 'iris', and using `rmarkdown::paged_table()` di
 
 `View(iris)`
 
-![](images/Zrzut ekranu 2025-04-25 o 11.28.28.png){width="300" height="270"}
+![](images/iris.png){width="400"}
 
 #### Transforming table to longer (3 columns Species \| Trait \| Size)
 
@@ -45,7 +45,7 @@ Using regex I created a pattern for columns to change `(Sepal|Petal)\\.(Length|W
 
 `View(iris_long)`
 
-![](images/Zrzut ekranu 2025-04-25 o 12.05.27.png){width="200"}
+![](images/iris_long.png){width="300"}
 
 #### **Mean of length** and **width** of **petal** and **sepal for each species**
 
@@ -60,7 +60,7 @@ Here I create groups by Species and Trait (for example all setosa Petal.length),
 
 `View(petal_sepal_mean)`
 
-![](images/Zrzut ekranu 2025-04-25 o 12.13.01.png){width="230"}
+![](images/petal_sepal_mean.png){width="300"}
 
 #### The **largest** and **widest** **petal** and **sepal** of **virginica** and **versicolor** species
 
@@ -77,7 +77,7 @@ Here I wanted only two species so I filtered them, and againg created groups by 
 
 `View(largest_petal_sepal)`
 
-![](images/Zrzut ekranu 2025-04-25 o 12.15.46.png){width="300"}
+![](images/largest_petal_size.png){width="300"}
 
 #### **Values larger than mean for each species and trait**
 
@@ -98,10 +98,10 @@ Lastly I wanted only values larger than mean, so using `left_join()` (because I 
 
 `View(iris_long_1)`
 
-![](images/Zrzut ekranu 2025-04-25 o 12.24.19.png){width="250"}
+![](images/iris_long_1.png){width="300"}
 
 Now I am able to filter only the rows with 'Size' bigger than 'Mean' and using `summarise()` and `n()` I count all the filtered rows for each group.
 
 `View(above_mean)`
 
-![](images/Zrzut ekranu 2025-04-25 o 12.27.33.png){width="400"}
+![](images/above_mean.png){width="400"}
