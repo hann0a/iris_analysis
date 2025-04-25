@@ -131,7 +131,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>I also loaded a built-in dataset ‘iris’, and using <code>rmarkdown::paged_table()</code> displayed the dataset in a paged, scrollable HTML table (this function is from rmarkdown, but I use this library only once, that’s why I didn’t load it as tidyr and dplyr)</p>
 <p><code>View(iris)</code></p>
-<p><img src="images/Zrzut%20ekranu%202025-04-25%20o%2011.28.28.png" width="300" height="270"></p>
+<p><img src="images/iris.png" class="img-fluid" width="400"></p>
 </section>
 <section id="transforming-table-to-longer-3-columns-species-trait-size" class="level4">
 <h4 class="anchored" data-anchor-id="transforming-table-to-longer-3-columns-species-trait-size">Transforming table to longer (3 columns Species | Trait | Size)</h4>
@@ -142,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Using regex I created a pattern for columns to change <code>(Sepal|Petal)\\.(Length|Width)</code> and saved names in column “Trait” and values in column “Size”.</p>
 <p><code>View(iris_long)</code></p>
-<p><img src="images/Zrzut%20ekranu%202025-04-25%20o%2012.05.27.png" class="img-fluid" width="200"></p>
+<p><img src="images/iris_long.png" class="img-fluid" width="300"></p>
 </section>
 <section id="mean-of-length-and-width-of-petal-and-sepal-for-each-species" class="level4">
 <h4 class="anchored" data-anchor-id="mean-of-length-and-width-of-petal-and-sepal-for-each-species"><strong>Mean of length</strong> and <strong>width</strong> of <strong>petal</strong> and <strong>sepal for each species</strong></h4>
@@ -154,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Here I create groups by Species and Trait (for example all setosa Petal.length), then for each group I calculate the mean (<code>.groups = "drop"</code> after ruuning this drops created groups).</p>
 <p><code>View(petal_sepal_mean)</code></p>
-<p><img src="images/Zrzut%20ekranu%202025-04-25%20o%2012.13.01.png" class="img-fluid" width="230"></p>
+<p><img src="images/petal_sepal_mean.png" class="img-fluid" width="300"></p>
 </section>
 <section id="the-largest-and-widest-petal-and-sepal-of-virginica-and-versicolor-species" class="level4">
 <h4 class="anchored" data-anchor-id="the-largest-and-widest-petal-and-sepal-of-virginica-and-versicolor-species">The <strong>largest</strong> and <strong>widest</strong> <strong>petal</strong> and <strong>sepal</strong> of <strong>virginica</strong> and <strong>versicolor</strong> species</h4>
@@ -168,7 +168,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Here I wanted only two species so I filtered them, and againg created groups by species and traits. Then using <code>max()</code> function I found largest and widest values of each group.</p>
 <p><code>View(largest_petal_sepal)</code></p>
-<p><img src="images/Zrzut%20ekranu%202025-04-25%20o%2012.15.46.png" class="img-fluid" width="300"></p>
+<p><img src="images/largest_petal_size.png" class="img-fluid" width="300"></p>
 </section>
 <section id="values-larger-than-mean-for-each-species-and-trait" class="level4">
 <h4 class="anchored" data-anchor-id="values-larger-than-mean-for-each-species-and-trait"><strong>Values larger than mean for each species and trait</strong></h4>
@@ -186,10 +186,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Lastly I wanted only values larger than mean, so using <code>left_join()</code> (because I want all values from iris_long to be present) I joined it with petal_sepal_mean by matching columns ‘Species’ and ‘Trait’ (these two columns are a key for each row). This created a table iris_long_1:</p>
 <p><code>View(iris_long_1)</code></p>
-<p><img src="images/Zrzut%20ekranu%202025-04-25%20o%2012.24.19.png" class="img-fluid" width="250"></p>
+<p><img src="images/iris_long_1.png" class="img-fluid" width="300"></p>
 <p>Now I am able to filter only the rows with ‘Size’ bigger than ‘Mean’ and using <code>summarise()</code> and <code>n()</code> I count all the filtered rows for each group.</p>
 <p><code>View(above_mean)</code></p>
-<p><img src="images/Zrzut%20ekranu%202025-04-25%20o%2012.27.33.png" class="img-fluid" width="400"></p>
+<p><img src="images/above_mean.png" class="img-fluid" width="400"></p>
 </section>
 </section>
 
